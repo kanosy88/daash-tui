@@ -9,4 +9,6 @@ const (
 	KeyScrollUpK   = "k"
 	KeyScrollDown  = "down"
 	KeyScrollDownJ = "j"
+	KeyHelp        = "?"
+	KeyClose       = "esc"
 )

@@ -25,6 +25,7 @@ type AppModel struct {
 	width        int
 	height       int
 	ready        bool
+	showHelp     bool
 }
 
 // New creates an AppModel with the given panels. The first panel starts focused.
@@ -57,14 +58,36 @@ func (m AppModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 
 	case tea.KeyMsg:
+		// Help overlay intercepts all keys except quit.
+		if msg.String() == ui.KeyHelp {
+			m.showHelp = !m.showHelp
+			return m, nil
+		}
+		if m.showHelp {
+			if msg.String() == ui.KeyClose {
+				m.showHelp = false
+			}
+			return m, nil
+		}
+
 		switch msg.String() {
 		case ui.KeyQuit, ui.KeyQuitAlt:
 			return m, tea.Quit
+		case ui.KeyClose:
+			m = m.blurAll()
+			return m, nil
 		case ui.KeyNextPanel:
-			m = m.focusPanel((m.focusedIndex + 1) % len(m.panels))
+			next := 0
+			if m.focusedIndex >= 0 {
+				next = (m.focusedIndex + 1) % len(m.panels)
+			}
+			m = m.focusPanel(next)
 			return m, nil
 		case ui.KeyPrevPanel:
-			prev := (m.focusedIndex - 1 + len(m.panels)) % len(m.panels)
+			prev := len(m.panels) - 1
+			if m.focusedIndex >= 0 {
+				prev = (m.focusedIndex - 1 + len(m.panels)) % len(m.panels)
+			}
 			m = m.focusPanel(prev)
 			return m, nil
 		case "1", "2", "3":
@@ -79,10 +102,12 @@ func (m AppModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	// Key messages go only to the focused panel.
 	// All other messages (data fetches, ticks, etc.) are broadcast to every panel.
 	if _, isKey := msg.(tea.KeyMsg); isKey {
-		var cmd tea.Cmd
-		updated, cmd := m.panels[m.focusedIndex].Update(msg)
-		m.panels[m.focusedIndex] = updated.(panels.Panel)
-		return m, cmd
+		if m.focusedIndex >= 0 {
+			updated, cmd := m.panels[m.focusedIndex].Update(msg)
+			m.panels[m.focusedIndex] = updated.(panels.Panel)
+			return m, cmd
+		}
+		return m, nil
 	}
 
 	var cmds []tea.Cmd
@@ -103,6 +128,10 @@ func (m AppModel) View() string {
 	if m.width < minWidth || m.height < minHeight {
 		return fmt.Sprintf("Terminal too small (min %dx%d, got %dx%d)",
 			minWidth, minHeight, m.width, m.height)
+	}
+
+	if m.showHelp {
+		return ui.RenderHelpOverlay(m.width, m.height)
 	}
 
 	// Layout: Calendar (left, full height) | TicTic + Weather (right, stacked)
@@ -145,6 +174,15 @@ func (m AppModel) focusPanel(i int) AppModel {
 	return m
 }
 
+// blurAll removes focus from all panels (focusedIndex = -1).
+func (m AppModel) blurAll() AppModel {
+	m.focusedIndex = -1
+	for i, p := range m.panels {
+		m.panels[i] = p.Blur()
+	}
+	return m
+}
+
 func (m AppModel) statusBarContent() string {
 	now := time.Now()
 
@@ -152,7 +190,12 @@ func (m AppModel) statusBarContent() string {
 	left := now.Format("15:04")
 
 	// Center: focused panel + shortcuts
-	center := fmt.Sprintf("[ %s ]  tab · ↑↓ · v · q", m.panels[m.focusedIndex].Title())
+	var center string
+	if m.focusedIndex >= 0 {
+		center = fmt.Sprintf("[ %s ]  tab · ↑↓ · v · ? · q", m.panels[m.focusedIndex].Title())
+	} else {
+		center = "tab to focus  ·  ? · q"
+	}
 
 	// Right: last sync times for each panel
 	labels := []string{"cal", "tick", "wx"}

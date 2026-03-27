@@ -125,10 +125,13 @@ go build -o daash .
 | -------------- | -------------------------------------------- |
 | `Tab`          | Focus next panel                             |
 | `Shift+Tab`    | Focus previous panel                         |
+| `1` `2` `3`    | Focus panel directly                         |
 | `↑` / `k`      | Scroll up                                    |
 | `↓` / `j`      | Scroll down                                  |
 | `v`            | Cycle TickTick filter (Today / 7 Days / All) |
 | `r`            | Force refresh (Calendar + TickTick)          |
+| `?`            | Toggle help overlay                          |
+| `Esc`          | Unfocus all panels / close help overlay      |
 | `q` / `Ctrl+C` | Quit                                         |
 
 ## Uninstall
