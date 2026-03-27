@@ -88,6 +88,13 @@ On first launch, the browser opens for OAuth authorization (Google Calendar firs
 go install github.com/kanosy88/daash-tui@latest
 ```
 
+Make sure `$GOPATH/bin` is in your PATH (one-time setup):
+
+```bash
+# Add this to your ~/.zshrc or ~/.bashrc
+export PATH=$PATH:$(go env GOPATH)/bin
+```
+
 Then run:
 
 ```bash
