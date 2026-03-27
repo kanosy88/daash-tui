@@ -134,6 +134,12 @@ go build -o daash .
 | `Esc`          | Unfocus all panels / close help overlay      |
 | `q` / `Ctrl+C` | Quit                                         |
 
+## Update
+
+```bash
+go install github.com/kanosy88/daash-tui@latest
+```
+
 ## Uninstall
 
 ```bash
