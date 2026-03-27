@@ -88,6 +88,12 @@ On first launch, the browser opens for OAuth authorization (Google Calendar firs
 go install github.com/kanosy88/daash-tui@latest
 ```
 
+Then run:
+
+```bash
+daash-tui
+```
+
 Or build from source:
 
 ```bash
