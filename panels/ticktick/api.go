@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"daash/config"
+	"github.com/kanosy88/daash-tui/config"
 )
 
 const apiBase = "https://ticktick.com/open/v1"

@@ -6,10 +6,10 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
-	"daash/model"
-	"daash/panels/calendar"
-	"daash/panels/ticktick"
-	"daash/panels/weather"
+	"github.com/kanosy88/daash-tui/model"
+	"github.com/kanosy88/daash-tui/panels/calendar"
+	"github.com/kanosy88/daash-tui/panels/ticktick"
+	"github.com/kanosy88/daash-tui/panels/weather"
 )
 
 func main() {

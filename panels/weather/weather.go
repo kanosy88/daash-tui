@@ -7,9 +7,9 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
-	"daash/config"
-	"daash/panels"
-	"daash/ui"
+	"github.com/kanosy88/daash-tui/config"
+	"github.com/kanosy88/daash-tui/panels"
+	"github.com/kanosy88/daash-tui/ui"
 )
 
 // ForecastDay holds a single day's forecast.

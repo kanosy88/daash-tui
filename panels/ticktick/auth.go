@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"daash/config"
+	"github.com/kanosy88/daash-tui/config"
 	"golang.org/x/oauth2"
 )
 

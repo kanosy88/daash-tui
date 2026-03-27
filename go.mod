@@ -1,4 +1,4 @@
-module daash
+module github.com/kanosy88/daash-tui
 
 go 1.26.1
 

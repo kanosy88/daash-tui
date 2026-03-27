@@ -7,8 +7,8 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
-	"daash/panels"
-	"daash/ui"
+	"github.com/kanosy88/daash-tui/panels"
+	"github.com/kanosy88/daash-tui/ui"
 )
 
 const (

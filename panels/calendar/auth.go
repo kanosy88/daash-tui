@@ -14,7 +14,7 @@ import (
 	"golang.org/x/oauth2/google"
 	gcal "google.golang.org/api/calendar/v3"
 
-	"daash/config"
+	"github.com/kanosy88/daash-tui/config"
 )
 
 func tokenCachePath() string {

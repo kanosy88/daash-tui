@@ -6,7 +6,7 @@ import (
 	"sort"
 	"time"
 
-	"daash/config"
+	"github.com/kanosy88/daash-tui/config"
 	gcal "google.golang.org/api/calendar/v3"
 	"google.golang.org/api/option"
 )
