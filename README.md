@@ -85,8 +85,14 @@ On first launch, the browser opens for OAuth authorization (Google Calendar firs
 ## Installation
 
 ```bash
-git clone ...
-cd daash
+go install github.com/kanosy88/daash-tui@latest
+```
+
+Or build from source:
+
+```bash
+git clone https://github.com/kanosy88/daash-tui.git
+cd daash-tui
 go build -o daash .
 ./daash
 ```
