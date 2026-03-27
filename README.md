@@ -131,6 +131,13 @@ go build -o daash .
 | `r`            | Force refresh (Calendar + TickTick)          |
 | `q` / `Ctrl+C` | Quit                                         |
 
+## Uninstall
+
+```bash
+rm $(go env GOPATH)/bin/daash-tui  # remove the binary
+rm -rf ~/.config/daash/            # remove config and tokens (optional)
+```
+
 ## Important files
 
 ```
